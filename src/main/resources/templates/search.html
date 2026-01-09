@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/head :: commonHead('Search Flights | TevinAir')}"></head>
+
+<body>
+    <!-- Header -->
+    <header th:replace="~{fragments/header :: header}">
+    </header>
+
+    <!-- Main Content -->
+    <main class="hero">
+
+        <!-- Hero Section -->
+        <section class="text-center mt-5" id="hero-section">
+            <div id="hero-text">
+                <h1>Your Journey Starts Here — Book with Ease!</h1>
+            </div>
+        </section>
+
+        <!-- Tabbed Form Section -->
+        <div class="container my-5">
+            <ul class="nav nav-tabs" id="flightTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="search-tab" data-bs-toggle="tab" data-bs-target="#search" type="button" role="tab">
+          Flight Search
+        </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="status-tab" data-bs-toggle="tab" data-bs-target="#status" type="button" role="tab">
+          Flight Status
+        </button>
+                </li>
+            </ul>
+            <div class="tab-content p-4 bg-white shadow-sm" id="flightTabsContent">
+                <!-- Flight Search Tab -->
+                <div class="tab-pane fade show active" id="search" role="tabpanel">
+
+                    <!-- Error backend Message -->
+                    <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
+
+                    <!-- Flight Search Form -->
+                    <form class="needs-validation" th:object="${searchRequest}" th:action="@{/search/results}" method="get">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+
+                                <!-- From -->
+                                <label for="from" class="form-label">From</label>
+                                <input type="text" class="form-control" id="from" name="from" th:field="*{from}" placeholder="City or airport" required>
+                                <div class="invalid-feedback">Please enter a departure city.</div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <!-- To -->
+                                <label for="to" class="form-label">To</label>
+                                <input type="text" class="form-control" id="to" name="to" th:field="*{to}" placeholder="City or airport" required>
+                                <div class="invalid-feedback">Please enter a destination city.</div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <!-- Trip Type -->
+                                <label for="tripType" class="form-label">Trip Type:</label>
+                                <select id="tripType" name="tripType" th:field="*{tripType}" class="form-select">
+                                    <option value="round">Round Trip</option>
+                                    <option value="oneway">One Way</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-6">
+
+                                <!-- Depart Date -->
+                                <label for="departDate" class="form-label">Depart Date</label>
+                                <input type="date" class="form-control" id="departDate" name="departDate" th:field="*{departDate}" required>
+                                <div class="invalid-feedback">Please select a departure date.</div>
+                            </div>
+                            <div class="col-md-6" id="returnDateGroup">
+
+                                <!-- Return Date: Toggled by JS based on trip type option -->
+                                <label for="returnDate" class="form-label">Return Date</label>
+                                <input type="date" class="form-control" id="returnDate" name="returnDate" th:field="*{returnDate}" required>
+                                <div class="invalid-feedback">Please select a return date.</div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <!-- Passengers -->
+                                <label for="passengers" class="form-label">Passengers (Adults)</label>
+                                <input type="number" class="form-control" id="passengers" name="passengers" th:field="*{passengers}" min="1" max="10" value="1" required>
+                                <div class="invalid-feedback">Please enter the number of passengers (1–10).</div>
+                            </div>
+                            <div class="col-md-6">
+                                <!-- Children -->
+                                <label for="children" class="form-label">Children (0-17)</label>
+                                <input type="number" name="children" class="form-control" placeholder="Children (0-17)" th:field="*{children}" min="0" max="10" value="0" required>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Search Flights</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Flight Status Tab -->
+                <div class="tab-pane fade" id="status" role="tabpanel">
+                    <p>Feature coming soon: Check real-time flight status by flight number or route.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer th:replace="~{fragments/footer :: footer}">
+    </footer>
+    <script>
+        // Custom form validation
+        (function() {
+            'use strict';
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.from(forms).forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+
+    <!-- Custom JS for trip type toggle -->
+    <script th:src="@{/js/tripTypeToggle.js}"></script>
+
+    <!-- Bootstrap JS -->
+    <div th:replace="~{fragments/scripts :: commonScripts}"></div>
+</body>
+
+</html>

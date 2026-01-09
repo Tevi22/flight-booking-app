@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: commonHead('403 - Forbidden | TevinAir')}"></head>
+
+<body>
+    <!-- Header -->
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <!-- Page Content -->
+    <div class="error-container">
+        <div class="error-code">403</div>
+        <div class="error-message">Access Denied</div>
+        <p>You don’t have permission to view this page.</p>
+        <a th:href="@{/search}" class="btn btn-warning btn-home">Return to Home</a>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!--Bootstrap JS-->
+    <div th:replace="~{fragments/scripts :: commonScripts}"></div>
+</body>
+
+</html>

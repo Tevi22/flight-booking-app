@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: commonHead('Search Results | TevinAir')}"></head>
+
+<body class="bg-light">
+
+    <!-- Header -->
+    <header th:replace="~{fragments/header :: header}">
+    </header>
+
+    <!-- Main Content -->
+    <main class="hero" id="results">
+
+        <!-- Search Summary -->
+        <section class="mb-5" id="search-summary">
+            <h2 class="h4">Your Search Details</h2>
+            <div class="bg-white border rounded p-3 shadow-sm">
+                <p><strong>From:</strong> <span th:text="${searchRequest.from}"></span></p>
+                <p><strong>To:</strong> <span th:text="${searchRequest.to}"></span></p>
+                <p><strong>Departure Date:</strong> <span th:text="${searchRequest.departDate}"></span></p>
+                <p><strong>Return Date:</strong> <span th:text="${searchRequest.returnDate}"></span></p>
+                <p><strong>Passengers:</strong> <span th:text="${searchRequest.passengers}"></span></p>
+                <p><strong>Children:</strong> <span th:text="${searchRequest.children}"></span></p>
+            </div>
+        </section>
+
+        <!-- Available Flights -->
+        <section class="container" id="available-flights">
+            <h2 class="h4 mb-3">Available Flights</h2>
+
+            <!-- Sorting Info -->
+            <div class="mb-3">
+                <label id="sortLabel">Showing results sorted by: Default</label>
+                <select id="sortBy" class="form-select" style="width: 200px;">
+                    <option value="default">Default</option>
+                    <option value="priceAsc">Price: Low to High</option>
+                    <option value="priceDesc">Price: High to Low</option>
+                </select>
+            </div>
+
+            <div class="table-responsive bg-white rounded shadow-sm">
+                <table class="table table-hover table-bordered mb-0" id="flightsTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Airline</th>
+                            <th>Flight #</th>
+                            <th>Route</th>
+                            <th>Departure</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="flight : ${flights}">
+                            <td th:text="${flight.airline}"></td>
+                            <td th:text="${flight.flightNumber}"></td>
+                            <td>
+                                <span th:text="${flight.from}"></span> &rarr;
+                                <span th:text="${flight.to}"></span>
+                            </td>
+                            <td th:text="${flight.departureTime}"></td>
+                            <td th:text="${flight.price}" class="price"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer th:replace="~{fragments/footer :: footer}">
+    </footer>
+
+    <!-- Custom JS for Sorting Flights -->
+    <script th:src="@{/js/sort-flight.js}"></script>
+
+    <!-- Bootstrap JS -->
+    <div th:replace="~{fragments/scripts :: commonScripts}"></div>
+</body>
+
+</html>

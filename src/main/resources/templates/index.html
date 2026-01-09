@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/head :: commonHead('Welcome | TevinAir')}"></head>
+
+<body>
+    <!-- Header -->
+    <header th:replace="~{fragments/header :: header}"></header>
+
+    <main class="hero-home">
+        <!-- Hero Banner -->
+        <section id="hero-section" class="mt-5">
+            <div id="hero-text" class="text-center p-5">
+                <h1>Welcome to TevinAir</h1>
+                <p class="lead">Effortless flight booking made simple.</p>
+                <a href="/search" class="btn btn-primary btn-lg mt-3">Search Flights</a>
+                <a href="/login" class="btn btn-primary btn-lg mt-3">Login</a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="container my-5 text-center" id="home-about-section">
+            <h2 class="mb-4">Why Choose TevinAir?</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Fast & Easy</h5>
+                    <p>Book flights in seconds with our streamlined interface.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Modern Design</h5>
+                    <p>Built with Spring Boot, Thymeleaf, and Bootstrap.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Educational Project</h5>
+                    <p>Created as part of SNHU's IT 634 Distributed Application Development course.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: commonScripts}"></div>
+</body>
+
+</html>

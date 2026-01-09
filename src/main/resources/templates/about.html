@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/head :: commonHead('About | TevinAir')}"></head>
+<body id="about-page">
+    <!-- Header -->
+    <header th:replace="~{fragments/header :: header}"></header>
+
+    <!-- Main Content -->
+    <main class="container mt-5 mb-5">
+        <h1 class="text-center mb-4">About TevinAir</h1>
+
+        <p><strong>TevinAir</strong> is a fictional air travel booking web application developed by Tevin Davis for the IT 634 Distributed Application Development course at Southern New Hampshire University.</p>
+
+        <p>This application was built as part of <strong>Milestone Two</strong>, demonstrating the use of a custom RESTful API for searching flights, and showcasing integration of the Spring Boot MVC framework, Thymeleaf templating engine, and modular backend components. It includes unit testing, clear separation of concerns, and detailed in-code documentation.</p>
+
+        <ul class="list-group list-group-flush mt-5 mb-5" id="about-list">
+            <li class="list-group-item"><strong>Developer:</strong> Tevin Davis</li>
+            <li class="list-group-item"><strong>Backend:</strong> Spring Boot, Java 17</li>
+            <li class="list-group-item"><strong>Frontend:</strong> Thymeleaf, HTML5, Bootstrap 5</li>
+            <li class="list-group-item"><strong>Milestone Version:</strong> Milestone Two (REST API, Search, MVC, and Testing)</li>
+            <li class="list-group-item"><strong>Key Features:</strong> 
+                <ul>
+                    <li>RESTful search endpoint for flight data</li>
+                    <li>Mock data service layer for flight listings</li>
+                    <li>Flight search and results pages with form validation</li>
+                    <li>Comprehensive unit tests for controllers</li>
+                    <li>Reusable Thymeleaf fragments for consistent layout</li>
+                </ul>
+            </li>
+            <li class="list-group-item"><strong>Planned Enhancements:</strong> 
+                <ul>
+                    <li>User registration and login for booking</li>
+                    <li>Support for round-trip bookings</li>
+                    <li>Passenger age and class filters</li>
+                    <li>Integration with a real flight API (e.g., SkyPicker)</li>
+                </ul>
+            </li>
+        </ul>
+    </main>
+
+    <!-- Footer -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    
+    <!-- Bootstrap JS -->
+    <div th:replace="~{fragments/scripts :: commonScripts}"></div>
+</body>
+</html>

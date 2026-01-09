@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: commonHead('500 - Server Error | TevinAir')}"></head>
+
+<body>
+
+    <!-- Header -->
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <!-- Page Content -->
+    <div class="error-container">
+        <div class="error-code">500</div>
+        <div class="error-message">Oops! Something went wrong on our end.</div>
+        <p>Please try again later. We're working on it!</p>
+        <a th:href="@{/search}" class="btn btn-secondary btn-home">Back to Home</a>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!--Bootstrap JS-->
+    <div th:replace="~{fragments/scripts :: commonScripts}"></div>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: commonHead('Login | TevinAir')}"></head>
+
+<body>
+    <!-- Header -->
+    <header th:replace="~{fragments/header :: header}">
+    </header>
+    <main id="login-container">
+        <!--Login Form-->
+        <div class="form-container" id="login-form">
+            <h2 class="text-center mb-4">Login to TevinAir</h2>
+            <form th:action="@{/login}" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+                <div class="text-center mt-3">
+                    <a href="/register">Don't have an account? Register</a>
+                </div>
+            </form>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer th:replace="~{fragments/footer :: footer}">
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <div th:replace="~{fragments/scripts :: commonScripts}"></div>
+</body>
+
+</html>

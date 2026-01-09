@@ -1,0 +1,253 @@
+html,
+body {
+    background-color: #f8f9fa;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    flex: 1;
+}
+
+
+/* Home Styles */
+
+.hero-home {
+    background-image: url('../images/tevinair-bg.png');
+    /* Path is relative to the CSS file */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: fit-content;
+    /*Change layout*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    color: white;
+}
+
+#home-about-section h5 {
+    font-size: 1.5rem;
+    font-family: 'Montserrat', 'Poppins', sans-serif;
+    font-weight: bold;
+    color: #007bff;
+}
+
+
+/* Header Styles */
+
+.navbar a {
+    color: #007bff;
+    font-family: 'Montserrat', 'Poppins', sans-serif;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-family: 'Montserrat', 'Poppins', sans-serif;
+    font-weight: bold;
+}
+
+
+/* Search Results Page Styles */
+
+.hero {
+    background-image: url('../images/ai-generated-travelling-to-thailand-advertisment-background_37248582.jpg');
+    /* Path is relative to the CSS file */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: fit-content;
+    /*Change layout*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    color: white;
+}
+
+#hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#hero-text {
+    background: rgba(6, 6, 6, 0.1);
+}
+
+#hero-text h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: 'Montserrat', 'Poppins', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    background: semi-transparent black;
+    border-radius: 10px;
+}
+
+
+/* Search Form Styles */
+
+form label,
+.tab-pane,
+#results,
+#home-about-section {
+    color: black;
+}
+
+
+/* About Page Styles */
+
+#about-page {
+    background-image: url('../images/ai-generated-travelling-to-thailand-advertisment-background_37248582.jpg');
+    /* Path is relative to the CSS file */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: auto;
+}
+
+#about-page h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: 'Montserrat', 'Poppins', sans-serif;
+    border-radius: 10px;
+}
+
+#about-page p {
+    font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 10px;
+}
+
+#about-list li {
+    font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* Results Page Styles */
+
+#search-summary,
+#available-flights,
+.container,
+#login-form,
+#register-form {
+    background: rgba(255, 255, 255, 0.4);
+    /* translucent white */
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    /* glass effect */
+    -webkit-backdrop-filter: blur(8px);
+    /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#search-summary {
+    margin-top: 25px;
+}
+
+#search-summary div p {
+    text-decoration: underline;
+}
+
+.h4 {
+    color: #343a40;
+    /* dark text for headings */
+    text-align: center;
+}
+
+
+/* Login Page + Registration Page Styles */
+
+.form-container {
+    max-width: 400px;
+    margin: 100px auto;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+#login-container,
+#register-container {
+    background-image: url('../images/ai-generated-travelling-to-thailand-advertisment-background_37248582.jpg');
+    /* Path is relative to the CSS file */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: fit-content;
+}
+
+
+/* --------------------------------------------
+   ERROR PAGE: Generic Styling Shared Across Pages
+-------------------------------------------- */
+
+.error-container {
+    text-align: center;
+    margin-top: 60px;
+    padding: 40px;
+}
+
+.error-code {
+    font-size: 96px;
+    font-weight: bold;
+    color: #dc3545;
+    /* Bootstrap red */
+}
+
+.error-message {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.btn-home {
+    margin-top: 20px;
+}
+
+
+/* --------------------------------------------
+   ERROR PAGE: 403 - Access Denied
+-------------------------------------------- */
+
+.error-403 .error-code {
+    color: #ffc107;
+    /* Bootstrap warning yellow */
+}
+
+
+/* --------------------------------------------
+   ERROR PAGE: 404 - Page Not Found
+-------------------------------------------- */
+
+.error-404 .error-code {
+    color: #17a2b8;
+    /* Bootstrap info blue */
+}
+
+
+/* --------------------------------------------
+   ERROR PAGE: 500 - Internal Server Error
+-------------------------------------------- */
+
+.error-500 .error-code {
+    color: #dc3545;
+    /* Bootstrap danger red */
+}
+
+
+/* --------------------------------------------
+   ERROR PAGE: Default Catch-All
+-------------------------------------------- */
+
+.error-default .error-code {
+    color: #6c757d;
+    /* Bootstrap secondary gray */
+}

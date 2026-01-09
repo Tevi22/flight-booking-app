@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: commonHead('Error | TevinAir')}"></head>
+
+<body>
+
+    <!-- Header -->
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <!-- Page Content -->
+    <div class="error-container">
+        <div class="error-code">Oops!</div>
+        <div class="error-message">An unexpected error has occurred.</div>
+        <p>We’re not sure what happened. Try again or head back to the homepage.</p>
+        <a th:href="@{/search}" class="btn btn-primary btn-home">Back to Search</a>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!--Bootstrap JS-->
+    <div th:replace="~{fragments/scripts :: commonScripts}"></div>
+</body>
+
+</html>
