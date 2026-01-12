@@ -30,6 +30,7 @@ public class FlightController {
         model.addAttribute("searchRequest", new SearchRequest());
         return "search";
     }
+    
 
     /**
      * Handles flight search results.
