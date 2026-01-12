@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="table-responsive bg-white rounded shadow-sm">
-                    <table class="table table-hover table-bordered mb-0" id="flightsTable">
+                    <table class="table table-hover table-bordered mb-0" id="flightsTable" th:if="${!#lists.isEmpty(flights)}">
                         <thead class="table-light">
                             <tr>
                                 <th>Airline</th>
@@ -92,25 +92,24 @@
                     </table>
                 </div>
             </div>
-            <form th:action="@{/book}" method="post">
-    <input type="hidden" name="flightId" th:value="${flight.id}" />
-    <input type="hidden" name="passengers" th:value="${passengers}" />
-    <input type="hidden" name="children" th:value="${children}" />
-
-    <button type="submit">Book Flight</button>
-</form>
+            <form th:action="@{/book}" method="post" class="mt-4" th:if="${flights != null and !#lists.isEmpty(flights)}">
+                <input type="hidden " placeholder="flightId" name="flightId" th:value="${flight.id} " th:if="${flight != null and flight.id != null} " />
+                <input type="hidden " name="passengers " placeholder="passengers" th:value="${passengers} " />
+                <input type="hidden " name="children " placeholder="children" th:value="${children} " />
+                <button type="submit ">Book Flight</button>
+            </form>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer th:replace="~{fragments/footer :: footer}">
+    <footer th:replace="~{fragments/footer :: footer} ">
     </footer>
 
     <!-- Custom JS for Sorting Flights -->
-    <script th:src="@{/js/sort-flight.js}"></script>
+    <script th:src="@{/js/sort-flight.js} "></script>
 
     <!-- Bootstrap JS -->
-    <div th:replace="~{fragments/scripts :: commonScripts}"></div>
+    <div th:replace="~{fragments/scripts :: commonScripts} "></div>
 </body>
 
 </html>
