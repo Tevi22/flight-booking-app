@@ -92,6 +92,13 @@
                     </table>
                 </div>
             </div>
+            <form th:action="@{/book}" method="post">
+    <input type="hidden" name="flightId" th:value="${flight.id}" />
+    <input type="hidden" name="passengers" th:value="${passengers}" />
+    <input type="hidden" name="children" th:value="${children}" />
+
+    <button type="submit">Book Flight</button>
+</form>
         </section>
     </main>
 
