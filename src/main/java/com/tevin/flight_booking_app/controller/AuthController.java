@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 /**
  * Controller handling login and registration.
@@ -18,6 +20,17 @@ public class AuthController {
     public AuthController(UserXmlService userService) {
         this.userService = userService;
     }
+
+    @GetMapping("/login")
+    public String showLoginPage() {
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String showRegisterPage() {
+        return "register";
+    }
+    
 
     @PostMapping("/login")
     public String login(
@@ -38,9 +51,10 @@ public class AuthController {
     @PostMapping("/register")
     public String register(
             @RequestParam String username,
+            @RequestParam String email,
             @RequestParam String password) {
 
-        userService.registerUser(username, password);
+        userService.registerUser(username, email, password);
         return "redirect:/login";
     }
 }
