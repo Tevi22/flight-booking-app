@@ -1,39 +1,46 @@
 package com.tevin.flight_booking_app.controller;
 
+import com.tevin.flight_booking_app.service.UserXmlService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * Controller responsible for handling authentication-related page routing.
- *
- * <p>This controller provides endpoints for displaying the login and registration pages
- * in the flight booking application.</p>
- *
- * <p>Note: This controller does not process form submissions or handle authentication logic;
- * it only maps GET requests to the appropriate Thymeleaf templates.</p>
- * 
- * @author Tevin Davis
+ * Controller handling login and registration.
  */
 @Controller
 public class AuthController {
 
-    /**
-     * Handles GET requests to the login page.
-     *
-     * @return the name of the Thymeleaf template for the login page
-     */
-    @GetMapping("/login")
-    public String showLoginPage() {
-        return "login"; 
+    private final UserXmlService userService;
+
+    public AuthController(UserXmlService userService) {
+        this.userService = userService;
     }
 
-    /**
-     * Handles GET requests to the registration page.
-     *
-     * @return the name of the Thymeleaf template for the registration page
-     */
-    @GetMapping("/register")
-    public String showRegisterPage() {
-        return "register"; 
+    @PostMapping("/login")
+    public String login(
+            @RequestParam String username,
+            @RequestParam String password,
+            HttpSession session,
+            Model model) {
+
+        if (userService.authenticate(username, password)) {
+            session.setAttribute("loggedInUser", username);
+            return "redirect:/search";
+        }
+
+        model.addAttribute("error", "Invalid credentials");
+        return "login";
+    }
+
+    @PostMapping("/register")
+    public String register(
+            @RequestParam String username,
+            @RequestParam String password) {
+
+        userService.registerUser(username, password);
+        return "redirect:/login";
     }
 }
