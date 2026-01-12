@@ -29,40 +29,68 @@
         <section class="container" id="available-flights">
             <h2 class="h4 mb-3">Available Flights</h2>
 
-            <!-- Sorting Info -->
-            <div class="mb-3">
-                <label id="sortLabel">Showing results sorted by: Default</label>
-                <select id="sortBy" class="form-select" style="width: 200px;">
+            <!-- Show a friendly message when the search returns no flights -->
+            <div th:if="${noResultsMessage != null}" class="alert alert-warning text-center" role="alert">
+                <span th:text="${noResultsMessage}"></span>
+                <div class="mt-2">
+                    Try a different date (or broaden your date range) and search again.
+                </div>
+                <div>
+                    <a th:href="@{/search}" class="btn btn-primary mt-3">New Search</a>
+                </div>
+            </div>
+
+            <!-- Only show sorting + table when we actually have results -->
+            <div th:if="${flights != null and !#lists.isEmpty(flights)}">
+
+                <!-- Sorting Info -->
+                <div class="mb-3">
+                    <label id="sortLabel">Showing results sorted by: Default</label>
+                    <select id="sortBy" class="form-select" style="width: 200px;">
                     <option value="default">Default</option>
                     <option value="priceAsc">Price: Low to High</option>
                     <option value="priceDesc">Price: High to Low</option>
                 </select>
-            </div>
+                </div>
 
-            <div class="table-responsive bg-white rounded shadow-sm">
-                <table class="table table-hover table-bordered mb-0" id="flightsTable">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Airline</th>
-                            <th>Flight #</th>
-                            <th>Route</th>
-                            <th>Departure</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="flight : ${flights}">
-                            <td th:text="${flight.airline}"></td>
-                            <td th:text="${flight.flightNumber}"></td>
-                            <td>
-                                <span th:text="${flight.from}"></span> &rarr;
-                                <span th:text="${flight.to}"></span>
-                            </td>
-                            <td th:text="${flight.departureTime}"></td>
-                            <td th:text="${flight.price}" class="price"></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive bg-white rounded shadow-sm">
+                    <table class="table table-hover table-bordered mb-0" id="flightsTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Airline</th>
+                                <th>Flight #</th>
+                                <th>Route</th>
+                                <th>Departure</th>
+                                <th>Seats</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="flight : ${flights}">
+                                <!-- Airline: keep as a constant label to avoid needing a DB field -->
+                                <td>TevinAir</td>
+
+                                <!-- FlightEntity.flightNumber -->
+                                <td th:text="${flight.flightNumber}"></td>
+
+                                <!-- FlightEntity.origin + FlightEntity.destination -->
+                                <td>
+                                    <span th:text="${flight.origin}"></span> &rarr;
+                                    <span th:text="${flight.destination}"></span>
+                                </td>
+
+                                <!-- FlightEntity.departureDate -->
+                                <td th:text="${flight.departureDate}"></td>
+
+                                <!-- FlightEntity.availableSeats (keep class='seats' so JS sort still works) -->
+                                <td th:text="${flight.availableSeats}" class="seats"></td>
+
+                                <!-- FlightEntity.price (keep class='price' so JS sort still works) -->
+                                <td th:text="${flight.price}" class="price"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
     </main>
