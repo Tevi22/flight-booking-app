@@ -1,14 +1,15 @@
 package com.tevin.flight_booking_app;
 
 import com.tevin.flight_booking_app.controller.FlightController;
-import com.tevin.flight_booking_app.model.Flight;
+import com.tevin.flight_booking_app.model.FlightEntity;
 import com.tevin.flight_booking_app.service.FlightService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
@@ -16,58 +17,51 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
- * Tests for {@link FlightController} endpoints using Spring MVC test framework.
- * Ensures endpoints return correct views and model attributes.
+ * Controller tests for FlightController.
  */
-@WebMvcTest(FlightController.class)
-public class FlightControllerTest {
+@WebMvcTest(controllers = FlightController.class)
+class FlightControllerTest {
 
-        @Autowired
-        private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-        // Inject mock version of the FlightService
-        @MockBean
-        private FlightService flightService;
+    @MockitoBean
+    private FlightService flightService;
 
-        /**
-         * Test that the /search page loads with status 200 and includes 'searchRequest'
-         * model.
-         *
-         * @throws Exception if the request fails
-         */
-        @Test
-        void searchPageLoadsSuccessfully() throws Exception {
-                mockMvc.perform(get("/search"))
-                                .andExpect(status().isOk())
-                                .andExpect(view().name("search"))
-                                .andExpect(model().attributeExists("searchRequest")); // Changed from 'message'
-        }
+    @Test
+    void searchFlights_returnsResultsView_withFlightsInModel() throws Exception {
+        // Arrange
+        FlightEntity flight = new FlightEntity();
+        flight.setFlightNumber("AA101");
+        flight.setOrigin("JFK");
+        flight.setDestination("LAX");
+        flight.setDepartureDate(LocalDate.of(2026, 2, 1));
+        flight.setPrice(320.50);
+        flight.setAvailableSeats(50);
 
-        /**
-         * Test the /search/results endpoint using query params and verify it returns
-         * expected model and view.
-         *
-         * @throws Exception if the request fails
-         */
-        @Test
-        void searchResults_usesFlightServiceAndReturnsResultsView() throws Exception {
-                // Arrange: sample mock flights returned by the FlightService
-                List<Flight> sampleFlights = List.of(
-                                new Flight("TevinAir", "TA123", "IND", "JFK", "2025-12-15 08:30", 199.99),
-                                new Flight("SkyJet", "SJ789", "IND", "JFK", "2025-12-15 14:15", 249.99));
+        List<FlightEntity> flights = List.of(flight);
 
-                when(flightService.searchFlights("IND", "JFK", "2025-12-15", "2025-12-20", 1))
-                                .thenReturn(sampleFlights);
+        when(flightService.searchOutboundFlights(
+                "JFK",
+                "LAX",
+                LocalDate.of(2026, 2, 1)
+        )).thenReturn(flights);
 
-                mockMvc.perform(get("/search/results")
-                                .param("from", "IND")
-                                .param("to", "JFK")
-                                .param("departDate", "2025-12-15")
-                                .param("returnDate", "2025-12-20")
-                                .param("passengers", "1"))
-                                .andExpect(status().isOk())
-                                .andExpect(view().name("results"))
-                                .andExpect(model().attributeExists("searchRequest")) // changed
-                                .andExpect(model().attributeExists("flights")); // kept
-        }
+        // Act + Assert
+        mockMvc.perform(get("/search/results")
+                        .param("from", "JFK")
+                        .param("to", "LAX")
+                        .param("tripType", "oneway")
+                        .param("departDate", "2026-02-01")
+                        .param("passengers", "1")
+                        .param("children", "0"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("results"))
+                .andExpect(model().attributeExists("flights"))
+                .andExpect(model().attribute("from", "JFK"))
+                .andExpect(model().attribute("to", "LAX"))
+                .andExpect(model().attribute("tripType", "oneway"))
+                .andExpect(model().attribute("passengers", 1))
+                .andExpect(model().attribute("children", 0));
+    }
 }
