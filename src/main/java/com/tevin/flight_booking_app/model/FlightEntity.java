@@ -39,6 +39,10 @@ public class FlightEntity {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getFlightNumber() {
         return flightNumber;
     }
@@ -86,4 +90,5 @@ public class FlightEntity {
     public void setAvailableSeats(int availableSeats) {
         this.availableSeats = availableSeats;
     }
+
 }
