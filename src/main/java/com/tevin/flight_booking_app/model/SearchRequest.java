@@ -1,91 +1,39 @@
 package com.tevin.flight_booking_app.model;
 
+import java.time.LocalDate;
+
 /**
- * Data Transfer Object (DTO) that holds user input from the flight search form.
- *
- * <p>
- * This object is automatically populated using Spring MVC's
- * 
- * @ModelAttribute and is passed to the controller for processing.
- *                 </p>
+ * DTO for binding flight search form data.
  */
 public class SearchRequest {
+
     private String from;
     private String to;
-    private String departDate;
-    private String returnDate;
+    private String tripType;
+    private LocalDate departDate;
+    private LocalDate returnDate;
     private int passengers;
     private int children;
-    private String tripType;
-    private String sortBy;
 
-    // Default constructor (required for Spring's data binding)
-    public SearchRequest() {
-    }
+    // Getters and setters
+    public String getFrom() { return from; }
+    public void setFrom(String from) { this.from = from; }
 
-    // Getters and Setters
+    public String getTo() { return to; }
+    public void setTo(String to) { this.to = to; }
 
-    public String getFrom() {
-        return from;
-    }
+    public String getTripType() { return tripType; }
+    public void setTripType(String tripType) { this.tripType = tripType; }
 
-    public void setFrom(String from) {
-        this.from = from;
-    }
+    public LocalDate getDepartDate() { return departDate; }
+    public void setDepartDate(LocalDate departDate) { this.departDate = departDate; }
 
-    public String getTo() {
-        return to;
-    }
+    public LocalDate getReturnDate() { return returnDate; }
+    public void setReturnDate(LocalDate returnDate) { this.returnDate = returnDate; }
 
-    public void setTo(String to) {
-        this.to = to;
-    }
+    public int getPassengers() { return passengers; }
+    public void setPassengers(int passengers) { this.passengers = passengers; }
 
-    public String getDepartDate() {
-        return departDate;
-    }
-
-    public void setDepartDate(String departDate) {
-        this.departDate = departDate;
-    }
-
-    public String getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate(String returnDate) {
-        this.returnDate = returnDate;
-    }
-
-    public int getPassengers() {
-        return passengers;
-    }
-
-    public void setPassengers(int passengers) {
-        this.passengers = passengers;
-    }
-
-    public int getChildren() {
-        return children;
-    }
-
-    public void setChildren(int children) {
-        this.children = children;
-    }
-
-    public String getTripType() {
-        return tripType;
-    }
-
-    public void setTripType(String tripType) {
-        this.tripType = tripType;
-    }
-
-    public String getSortBy() {
-        return sortBy;
-    }
-
-    public void setSortBy(String sortBy) {
-        this.sortBy = sortBy;
-    }
+    public int getChildren() { return children; }
+    public void setChildren(int children) { this.children = children; }
 }
