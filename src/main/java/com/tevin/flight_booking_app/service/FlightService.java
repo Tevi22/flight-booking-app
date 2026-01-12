@@ -4,6 +4,7 @@ import com.tevin.flight_booking_app.model.FlightEntity;
 import com.tevin.flight_booking_app.repository.FlightRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -38,5 +39,19 @@ public class FlightService {
         return flightRepository
                 .findByOriginIgnoreCaseAndDestinationIgnoreCaseAndDepartureDate(
                         origin, destination, departDate);
+    }
+
+    /**
+     * Retrieves a flight by its ID.
+     *
+     * @param flightId the flight ID
+     * @return FlightEntity if found
+     * @throws IllegalArgumentException if flight does not exist
+     */
+    public FlightEntity getFlightById(Long flightId) {
+        Optional<FlightEntity> flight = flightRepository.findById(flightId);
+
+        return flight.orElseThrow(() ->
+                new IllegalArgumentException("Flight not found with ID: " + flightId));
     }
 }
