@@ -1,36 +1,34 @@
 package com.tevin.flight_booking_app.service;
 
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.*;
+
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import java.io.InputStream;
 
 /**
- * Service responsible for user registration and authentication
- * using a local XML file.
+ * Handles user registration and authentication using a filesystem XML file.
  */
 @Service
 public class UserXmlService {
 
-    private static final String FILE_PATH = "users.xml";
+    private static final String DATA_DIR = "data";
+    private static final String FILE_PATH = DATA_DIR + "/users.xml";
+
+    public UserXmlService() {
+        ensureFileExists();
+    }
 
     /**
-     * Registers a new user in the XML file.
+     * Register a new user.
      */
     public void registerUser(String username, String email, String password) {
         try {
-            File file = new File(FILE_PATH);
-
-            Document doc = DocumentBuilderFactory
-                    .newInstance()
-                    .newDocumentBuilder()
-                    .parse(file);
-
+            Document doc = loadDocument();
             Element root = doc.getDocumentElement();
 
             Element user = doc.createElement("user");
@@ -47,54 +45,70 @@ public class UserXmlService {
             user.appendChild(u);
             user.appendChild(e);
             user.appendChild(p);
+
             root.appendChild(user);
+            saveDocument(doc);
 
-            Transformer transformer = TransformerFactory
-                    .newInstance()
-                    .newTransformer();
-
-            transformer.transform(new DOMSource(doc), new StreamResult(file));
-
-        } catch (Exception e) {
-            throw new RuntimeException("User registration failed", e);
+        } catch (Exception ex) {
+            throw new RuntimeException("User registration failed", ex);
         }
     }
 
     /**
-     * Authenticates a user from the XML file.
+     * Authenticate an existing user.
      */
     public boolean authenticate(String username, String password) {
         try {
-            InputStream is = new ClassPathResource(FILE_PATH).getInputStream();
-
-            Document doc = DocumentBuilderFactory
-                    .newInstance()
-                    .newDocumentBuilder()
-                    .parse(is);
-
+            Document doc = loadDocument();
             NodeList users = doc.getElementsByTagName("user");
 
             for (int i = 0; i < users.getLength(); i++) {
                 Element user = (Element) users.item(i);
 
-                String u = user
-                        .getElementsByTagName("username")
-                        .item(0)
-                        .getTextContent();
-
-                String p = user
-                        .getElementsByTagName("password")
-                        .item(0)
-                        .getTextContent();
+                String u = user.getElementsByTagName("username").item(0).getTextContent();
+                String p = user.getElementsByTagName("password").item(0).getTextContent();
 
                 if (u.equals(username) && p.equals(password)) {
                     return true;
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace(); // 👈 REQUIRED while debugging
+            e.printStackTrace();
         }
 
         return false;
+    }
+
+    // ------------------ helpers ------------------
+
+    private Document loadDocument() throws Exception {
+        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        return builder.parse(new File(FILE_PATH));
+    }
+
+    private void saveDocument(Document doc) throws Exception {
+        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.transform(new DOMSource(doc), new StreamResult(new File(FILE_PATH)));
+    }
+
+    private void ensureFileExists() {
+        try {
+            File dir = new File(DATA_DIR);
+            if (!dir.exists()) dir.mkdir();
+
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+                Document doc = builder.newDocument();
+
+                Element root = doc.createElement("users");
+                doc.appendChild(root);
+
+                saveDocument(doc);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to initialize users.xml", e);
+        }
     }
 }
