@@ -135,7 +135,9 @@ form label,
 #available-flights,
 .container,
 #login-form,
-#register-form {
+#register-form,
+#booking-results,
+#booking-summary {
     background: rgba(255, 255, 255, 0.4);
     /* translucent white */
     border-radius: 16px;
