@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: commonHead('Booking | TevinAir')}"></head>
+
+<body>
+    <!-- Header -->
+    <header th:replace="~{fragments/header :: header}"></header>
+    <main class="hero-home">
+        <section class="continer mt-4" id="booking-results">
+            <h2 class="mb-4">My Booked Flights</h2>
+
+            <!-- Only visible when logged in -->
+            <div th:if="${session.loggedInUser}" class="mb-3">
+                <p class="text-muted">
+                    Showing bookings for
+                    <strong th:text="${session.loggedInUser}"></strong>
+                </p>
+            </div>
+
+            <!-- No bookings -->
+            <div th:if="${#lists.isEmpty(bookings)}" class="alert alert-info">
+                <p>You have no booked flights yet.</p>
+                <a th:href="@{/search}" class="btn btn-primary mt-2">Search Flights</a>
+            </div>
+
+
+            <!-- Booking table -->
+            <table th:if="${!#lists.isEmpty(bookings)}" class="table table-striped table-bordered align-middle">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Flight #</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Departure</th>
+                        <th>Passengers</th>
+                        <th>Total Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="booking : ${bookings}">
+                        <td th:text="${booking.flight.flightNumber}"></td>
+                        <td th:text="${booking.flight.origin}"></td>
+                        <td th:text="${booking.flight.destination}"></td>
+                        <td th:text="${booking.flight.departureDate}"></td>
+                        <td th:text="${booking.passengers}"></td>
+                        <td th:text="${booking.totalPrice}"></td>
+                        <td>
+                            <form th:action="@{/booking/cancel}" method="post">
+                                <input type="hidden" name="bookingId" th:value="${booking.id}" />
+                                <button class="btn btn-sm btn-danger" onclick="return confirm('Cancel this booking?')">
+                                    Cancel
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </section>
+
+
+    </main>
+    <!-- Footer -->
+    <footer th:replace="~{fragments/footer :: footer}">
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <div th:replace="~{fragments/scripts :: commonScripts}"></div>
+
+</body>
+
+</html>
