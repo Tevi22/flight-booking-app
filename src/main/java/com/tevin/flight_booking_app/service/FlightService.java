@@ -26,9 +26,9 @@ public class FlightService {
     /**
      * Searches for outbound flights.
      *
-     * @param origin origin city
+     * @param origin      origin city
      * @param destination destination city
-     * @param departDate departure date
+     * @param departDate  departure date
      * @return list of matching flights (empty if none found)
      */
     public List<FlightEntity> searchOutboundFlights(
@@ -36,9 +36,13 @@ public class FlightService {
             String destination,
             LocalDate departDate) {
 
+        // Normalize user input for case sensitivity and defensive programming
+        String normalizedOrigin = origin == null ? null : origin.trim();
+        String normalizedDestination = destination == null ? null : destination.trim();
+
         return flightRepository
                 .findByOriginIgnoreCaseAndDestinationIgnoreCaseAndDepartureDate(
-                        origin, destination, departDate);
+                        normalizedOrigin, normalizedDestination, departDate);
     }
 
     /**
@@ -51,7 +55,6 @@ public class FlightService {
     public FlightEntity getFlightById(Long flightId) {
         Optional<FlightEntity> flight = flightRepository.findById(flightId);
 
-        return flight.orElseThrow(() ->
-                new IllegalArgumentException("Flight not found with ID: " + flightId));
+        return flight.orElseThrow(() -> new IllegalArgumentException("Flight not found with ID: " + flightId));
     }
 }
