@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
+
 /**
  * Controller responsible for serving general informational pages.
  *
@@ -37,6 +38,17 @@ public class PageController {
     public String homePage() {
         return "index";
     }
+
+    /**
+     * Handles GET requests for the Booking page.
+     *
+     * @return the name of the Thymeleaf template for the Booking page
+     */
+    @GetMapping("/book")
+    public String bookPage() {
+        return "book";
+    }
+    
 
     
     
