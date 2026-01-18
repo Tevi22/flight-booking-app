@@ -8,6 +8,19 @@
     <header th:replace="~{fragments/header :: header}">
     </header>
     <main id="login-container">
+
+        <!-- Alert Messages -->
+        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${successMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <!-- Alert Messages -->
+        <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span th:text="${errorMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
         <!--Login Form-->
         <div class="form-container" id="login-form">
             <h2 class="text-center mb-4">Login to TevinAir</h2>
