@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head th:replace="~{fragments/head :: commonHead('About | TevinAir')}"></head>
+
 <body id="about-page">
     <!-- Header -->
     <header th:replace="~{fragments/header :: header}"></header>
@@ -9,39 +11,90 @@
     <main class="container mt-5 mb-5">
         <h1 class="text-center mb-4">About TevinAir</h1>
 
-        <p><strong>TevinAir</strong> is a fictional air travel booking web application developed by Tevin Davis for the IT 634 Distributed Application Development course at Southern New Hampshire University.</p>
+        <p>
+            <strong>TevinAir</strong> is a fictional airline booking web application developed by
+            <strong>Tevin Davis</strong> for the IT 634 Distributed Application Development course at Southern New Hampshire University.
+        </p>
 
-        <p>This application was built as part of <strong>Milestone Two</strong>, demonstrating the use of a custom RESTful API for searching flights, and showcasing integration of the Spring Boot MVC framework, Thymeleaf templating engine, and modular backend components. It includes unit testing, clear separation of concerns, and detailed in-code documentation.</p>
+        <p>
+            This application represents the <strong>final project</strong> for the course and demonstrates the design and implementation of a full-stack, distributed web application using modern Java and Spring Boot technologies. TevinAir allows users
+            to search for flights, securely book reservations, view booking history, and cancel bookings with real-time seat availability updates.
+        </p>
 
-        <ul class="list-group list-group-flush mt-5 mb-5" id="about-list">
+        <p>
+            The system integrates a RESTful backend with a server-rendered frontend, backed by a relational database to persist flight and booking data. Emphasis was placed on modular architecture, separation of concerns, transaction safety, and realistic airline-style
+            user workflows.
+        </p>
+
+        <h4 class="mt-4">System Architecture Overview</h4>
+
+        <p>
+            TevinAir follows a layered, distributed architecture based on the
+            <strong>Model–View–Controller (MVC)</strong> design pattern. User interactions are handled by Spring MVC controllers, which delegate business logic to service-layer components. These services expose RESTful operations and interact with a persistent
+            data layer using Spring Data JPA.
+        </p>
+
+        <p>
+            The frontend is rendered using Thymeleaf templates, which consume data provided by controllers and present dynamic, server-side HTML views. All flight and booking data is stored in a MySQL relational database, ensuring durability and consistency across
+            user sessions and application restarts.
+        </p>
+
+        <p>
+            Transactional boundaries are enforced at the service layer to guarantee data integrity, particularly for booking creation and cancellation workflows where seat availability must remain synchronized.
+        </p>
+
+        <h4 class="mt-4">Key Features & Technical Stack</h4>
+
+        <ul class="list-group list-group-flush mt-4 mb-4" id="about-list">
             <li class="list-group-item"><strong>Developer:</strong> Tevin Davis</li>
-            <li class="list-group-item"><strong>Backend:</strong> Spring Boot, Java 17</li>
+            <li class="list-group-item"><strong>Backend:</strong> Java 17, Spring Boot (MVC & REST)</li>
             <li class="list-group-item"><strong>Frontend:</strong> Thymeleaf, HTML5, Bootstrap 5</li>
-            <li class="list-group-item"><strong>Milestone Version:</strong> Milestone Two (REST API, Search, MVC, and Testing)</li>
-            <li class="list-group-item"><strong>Key Features:</strong> 
+            <li class="list-group-item"><strong>Database:</strong> MySQL</li>
+            <li class="list-group-item"><strong>Project Status:</strong> Final Submission (Milestone Three)</li>
+
+            <li class="list-group-item">
+                <strong>Key Features:</strong>
                 <ul>
-                    <li>RESTful search endpoint for flight data</li>
-                    <li>Mock data service layer for flight listings</li>
-                    <li>Flight search and results pages with form validation</li>
-                    <li>Comprehensive unit tests for controllers</li>
-                    <li>Reusable Thymeleaf fragments for consistent layout</li>
-                </ul>
-            </li>
-            <li class="list-group-item"><strong>Planned Enhancements:</strong> 
-                <ul>
-                    <li>User registration and login for booking</li>
-                    <li>Support for round-trip bookings</li>
-                    <li>Passenger age and class filters</li>
-                    <li>Integration with a real flight API (e.g., SkyPicker)</li>
+                    <li>Case-insensitive flight search with date filtering</li>
+                    <li>RESTful service layer for flight and booking management</li>
+                    <li>Session-based user authentication</li>
+                    <li>Flight booking with real-time seat validation</li>
+                    <li>Booking confirmation with airline-style messaging</li>
+                    <li>User-specific booking history dashboard</li>
+                    <li>Transactional booking cancellation with seat restoration</li>
+                    <li>Persistent data storage using MySQL</li>
+                    <li>Reusable Thymeleaf fragments for layout consistency</li>
+                    <li>Extensive in-code documentation and modular design</li>
                 </ul>
             </li>
         </ul>
+
+        <h4 class="mt-4">Future Improvements</h4>
+
+        <p>
+            Potential future enhancements for TevinAir include support for round-trip bookings, passenger class selection, pricing tiers, and integration with a live third-party flight data provider. Additional security improvements such as Spring Security, token-based
+            authentication, and role-based access control could further strengthen the application for real-world deployment.
+        </p>
+
+        <h4 class="mt-4">Source Code</h4>
+
+        <p>
+            The complete source code for this project is available on GitHub:
+        </p>
+
+        <p>
+            <a href="https://github.com/Tevi22/flight-booking-app" target="_blank" rel="noopener noreferrer">
+                https://github.com/Tevi22/flight-booking-app
+            </a>
+        </p>
+
     </main>
 
     <!-- Footer -->
     <footer th:replace="~{fragments/footer :: footer}"></footer>
-    
+
     <!-- Bootstrap JS -->
     <div th:replace="~{fragments/scripts :: commonScripts}"></div>
 </body>
+
 </html>
