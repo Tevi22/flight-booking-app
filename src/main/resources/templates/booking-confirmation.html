@@ -8,35 +8,98 @@
     <header th:replace="~{fragments/header :: header}"></header>
     <main class="hero-home">
         <section class="continer mt-4" id="booking-summary">
-            <h2>Booking Confirmed</h2>
+            <div class="card shadow-sm">
+                <div class="card-body">
 
-            <p>
-                Booking ID:
-                <strong th:text="${booking.id}"></strong>
-            </p>
+                    <!-- Title -->
+                    <h2 class="text-success mb-3">✈️ Your Flight Is Confirmed!</h2>
 
-            <p>
-                Flight:
-                <strong th:text="${booking.flight.origin}"></strong> →
-                <strong th:text="${booking.flight.destination}"></strong>
-            </p>
+                    <p class="mb-4">
+                        Thank you for choosing <strong>TevinAir</strong>. Your reservation has been successfully booked. Please review your travel details below.
+                    </p>
 
-            <p>
-                Passengers:
-                <strong th:text="${booking.passengers}"></strong>
-            </p>
+                    <hr>
 
-            <p>
-                Children:
-                <strong th:text="${booking.children}"></strong>
-            </p>
+                    <!-- Booking Details -->
+                    <h5 class="mt-3">🧾 Booking Details</h5>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item">
+                            <strong>Booking Reference:</strong>
+                            <span th:text="'TA-' + ${booking.id}"></span>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Passenger:</strong>
+                            <span th:text="${booking.username}"></span>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Booking Date:</strong>
+                            <span th:text="${booking.bookingDate}"></span>
+                        </li>
+                    </ul>
 
-            <p>
-                Total Price: $
-                <strong th:text="${booking.totalPrice}"></strong>
-            </p>
+                    <!-- Flight Information -->
+                    <h5 class="mt-4">✈️ Flight Information</h5>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item">
+                            <strong>Airline:</strong> TevinAir
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Flight Number:</strong>
+                            <span th:text="${booking.flight.flightNumber}"></span>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Route:</strong>
+                            <span th:text="${booking.flight.origin}"></span> →
+                            <span th:text="${booking.flight.destination}"></span>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Departure Date:</strong>
+                            <span th:text="${booking.flight.departureDate}"></span>
+                        </li>
+                    </ul>
 
-            <a href="/search">Back to Search</a>
+                    <!-- Passengers & Pricing -->
+                    <h5 class="mt-4">💺 Passengers & Fare</h5>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item">
+                            <strong>Adults:</strong>
+                            <span th:text="${booking.passengers}"></span>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Children:</strong>
+                            <span th:text="${booking.children}"></span>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Total Price:</strong>
+                            <span class="fw-bold text-primary">
+                        $<span th:text="${booking.totalPrice}"></span> USD
+                            </span>
+                        </li>
+                    </ul>
+
+                    <!-- Travel Info -->
+                    <div class="alert alert-info mt-4">
+                        <strong>Important Travel Information</strong>
+                        <ul class="mb-0">
+                            <li>Please arrive at the airport at least <strong>2 hours before departure</strong></li>
+                            <li>Boarding gates close <strong>15 minutes prior to departure</strong></li>
+                            <li>A valid government-issued ID is required at check-in</li>
+                        </ul>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="mt-4 d-flex gap-2">
+                        <a th:href="@{/booking}" class="btn btn-outline-primary">
+                    View My Bookings
+                </a>
+                        <a th:href="@{/search}" class="btn btn-primary">
+                    Book Another Flight
+                </a>
+                    </div>
+
+                </div>
+            </div>
+
         </section>
     </main>
     <!-- Footer -->
