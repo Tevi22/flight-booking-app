@@ -94,7 +94,8 @@ main {
 form label,
 .tab-pane,
 #results,
-#home-about-section {
+#home-about-section,
+#booking-summary {
     color: black;
 }
 

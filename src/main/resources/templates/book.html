@@ -8,7 +8,7 @@
     <header th:replace="~{fragments/header :: header}"></header>
     <main class="hero-home">
         <section class="continer mt-4" id="booking-results">
-            <h2 class="mb-4">My Booked Flights</h2>
+            <h2 class="mb-4 text-center">My Booked Flights</h2>
 
             <!-- Only visible when logged in -->
             <div th:if="${session.loggedInUser}" class="mb-3">
@@ -28,8 +28,9 @@
             <!-- Booking table -->
             <table th:if="${!#lists.isEmpty(bookings)}" class="table table-striped table-bordered align-middle">
 
-                <thead class="table-dark">
+                <thead>
                     <tr>
+                        <th>Booking ID</th>
                         <th>Flight #</th>
                         <th>From</th>
                         <th>To</th>
@@ -42,6 +43,7 @@
 
                 <tbody>
                     <tr th:each="booking : ${bookings}">
+                        <td th:text="${booking.id}"></td>
                         <td th:text="${booking.flight.flightNumber}"></td>
                         <td th:text="${booking.flight.origin}"></td>
                         <td th:text="${booking.flight.destination}"></td>
