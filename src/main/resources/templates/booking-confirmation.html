@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: commonHead('Booking Confirmation | TevinAir')}"></head>
+
+<body>
+    <!-- Header -->
+    <header th:replace="~{fragments/header :: header}"></header>
+    <main class="hero-home">
+        <section class="continer mt-4" id="booking-summary">
+            <h2>Booking Confirmed</h2>
+
+            <p>
+                Booking ID:
+                <strong th:text="${booking.id}"></strong>
+            </p>
+
+            <p>
+                Flight:
+                <strong th:text="${booking.flight.origin}"></strong> →
+                <strong th:text="${booking.flight.destination}"></strong>
+            </p>
+
+            <p>
+                Passengers:
+                <strong th:text="${booking.passengers}"></strong>
+            </p>
+
+            <p>
+                Children:
+                <strong th:text="${booking.children}"></strong>
+            </p>
+
+            <p>
+                Total Price: $
+                <strong th:text="${booking.totalPrice}"></strong>
+            </p>
+
+            <a href="/search">Back to Search</a>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer th:replace="~{fragments/footer :: footer}">
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <div th:replace="~{fragments/scripts :: commonScripts}"></div>
+
+</body>
+
+</html>
