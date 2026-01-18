@@ -11,8 +11,21 @@
     <!-- Main Content -->
     <main class="hero">
 
+        <!-- Success Message -->
+        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${successMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
         <!-- Hero Section -->
         <section class="text-center mt-5" id="hero-section">
+
+            <!-- Welcome message (only when logged in) -->
+            <div th:if="${session.loggedInUser}" class="mb-3">
+                <h4 class="hero-text text-primary">
+                    Welcome, <span th:text="${session.loggedInUser}"></span>!
+                </h4>
+            </div>
             <div id="hero-text">
                 <h1>Your Journey Starts Here — Book with Ease!</h1>
             </div>
