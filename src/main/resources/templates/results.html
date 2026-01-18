@@ -87,17 +87,32 @@
 
                                 <!-- FlightEntity.price (keep class='price' so JS sort still works) -->
                                 <td th:text="${flight.price}" class="price"></td>
+
+                                <!-- Book button -->
+                                <td th:if="${session.loggedInUser != null}">
+                                    <form th:action="@{/booking/book}" method="post">
+                                        <input type="hidden" name="flightId" th:value="${flight.id}" />
+                                        <input type="hidden" name="children" value="0" />
+
+                                        <input type="number" name="passengers" min="1" th:attr="max=${flight.availableSeats}" value="1" class="form-control form-control-sm mb-1" />
+
+                                        <button type="submit" class="btn btn-sm btn-primary" th:disabled="${flight == null or flight.availableSeats == 0}">
+                                             Book
+                                        </button>
+                                    </form>
+                                </td>
+
+                                <!-- Login prompt for non-logged-in users -->
+                                <td th:if="${session.loggedInUser == null}">
+                                    <span class="text-muted">
+                                        <a th:href="@{/login}">Log in</a> to book
+                                    </span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <form th:action="@{/book}" method="post" class="mt-4" th:if="${flights != null and !#lists.isEmpty(flights)}">
-                <input type="hidden " placeholder="flightId" name="flightId" th:value="${flight.id} " th:if="${flight != null and flight.id != null} " />
-                <input type="hidden " name="passengers " placeholder="passengers" th:value="${passengers} " />
-                <input type="hidden " name="children " placeholder="children" th:value="${children} " />
-                <button type="submit ">Book Flight</button>
-            </form>
         </section>
     </main>
 
