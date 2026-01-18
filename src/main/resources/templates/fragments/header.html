@@ -7,19 +7,36 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+
+                    <!-- Greet logged-in user -->
+                    <li class="nav-item" th:if="${session.loggedInUser}">
+                        <span class="nav-link text-primary">Hi, <strong th:text="${session.loggedInUser}"></strong></span>
+                    </li>
+
+                    <!-- Navigation Links -->
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/search}">Search Flights</a>
                     </li>
+                    <!-- Booking link removed-->
+                    <li class="nav-item" th:if="${session.loggedInUser}">
+                        <a class="nav-link" th:href="@{/booking}">Booking</a>
+                    </li>
+                    <!-- Logout button (ONLY when logged in) -->
+                    <li class="nav-item" th:if="${session.loggedInUser}">
+                        <a class="nav-link" href="logout">
+                        Logout
+                    </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/about}">About</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:unless="${session.loggedInUser}">
                         <a class="nav-link" th:href="@{/login}">Login</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:unless="${session.loggedInUser}">
                         <a class="nav-link" th:href="@{/register}">Register</a>
                     </li>
                 </ul>
