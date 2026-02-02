@@ -52,6 +52,7 @@ public class FlightService {
      * @return FlightEntity if found
      * @throws IllegalArgumentException if flight does not exist
      */
+    @SuppressWarnings("null")
     public FlightEntity getFlightById(Long flightId) {
         Optional<FlightEntity> flight = flightRepository.findById(flightId);
 

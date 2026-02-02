@@ -4,10 +4,8 @@ import com.tevin.flight_booking_app.model.BookingEntity;
 import com.tevin.flight_booking_app.model.FlightEntity;
 import com.tevin.flight_booking_app.repository.BookingRepository;
 import com.tevin.flight_booking_app.repository.FlightRepository;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -75,8 +73,10 @@ public class BookingService {
     /*
      * Retrieves a booking by its ID.
      */
+    @SuppressWarnings("null")
     public BookingEntity getBookingById(Long bookingId) {
-        return bookingRepository.findById(bookingId).orElse(null);
+        return bookingRepository.findById(bookingId)
+                .orElse(null);
     }
 
     /**
@@ -85,6 +85,7 @@ public class BookingService {
     @Transactional
     public void cancelBooking(Long bookingId, String username) {
 
+        @SuppressWarnings("null")
         BookingEntity booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new RuntimeException("Booking not found"));
 

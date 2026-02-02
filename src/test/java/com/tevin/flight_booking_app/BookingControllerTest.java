@@ -8,54 +8,51 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Collections;
 
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(controllers = BookingController.class, excludeAutoConfiguration = SecurityAutoConfiguration.class // 🔑 KEY
-                                                                                                              // FIX
-)
+@WebMvcTest(controllers = BookingController.class, excludeAutoConfiguration = SecurityAutoConfiguration.class)
 @AutoConfigureMockMvc(addFilters = false)
 class BookingControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+        @Autowired
+        private MockMvc mockMvc;
 
-    @MockBean
-    private BookingService bookingService;
+        @MockitoBean
+        private BookingService bookingService;
 
-    @MockBean
-    private FlightService flightService;
+        @MockitoBean
+        private FlightService flightService;
 
-    @Test
-    void showBookingsPage_shouldRenderBookPage() throws Exception {
+        @Test
+        void showBookingsPage_shouldRenderBookPage() throws Exception {
 
-        when(bookingService.getBookingsByUsername("testuser"))
-                .thenReturn(Collections.emptyList());
+                when(bookingService.getBookingsByUsername("testuser"))
+                                .thenReturn(Collections.emptyList());
 
-        mockMvc.perform(
-                get("/booking")
-                        .sessionAttr("loggedInUser", "testuser"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("book"))
-                .andExpect(model().attributeExists("bookings"));
-    }
+                mockMvc.perform(
+                                get("/booking")
+                                                .sessionAttr("loggedInUser", "testuser"))
+                                .andExpect(status().isOk())
+                                .andExpect(view().name("book"))
+                                .andExpect(model().attributeExists("bookings"));
+        }
 
-    @Test
-    void cancelBooking_shouldRedirectToBookingPage() throws Exception {
+        @Test
+        void cancelBooking_shouldRedirectToBookingPage() throws Exception {
 
-        mockMvc.perform(
-                post("/booking/cancel")
-                        .param("bookingId", "1") 
-                        .sessionAttr("loggedInUser", "testuser"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/book"));
-    }
+                mockMvc.perform(
+                                post("/booking/cancel")
+                                                .param("bookingId", "1")
+                                                .sessionAttr("loggedInUser", "testuser"))
+                                .andExpect(status().is3xxRedirection())
+                                .andExpect(redirectedUrl("/book"));
+        }
 }
